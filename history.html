@@ -4,8 +4,49 @@
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <title>Cemo Home</title>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	</head>
 	<body>
-  <iframe src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1BWNINNMFKir3VHj2bNFWNi7RcCVYhreI2CgmN4Am05Y&font=Default&lang=ko&initial_zoom=2&height=650' width='100%' height='650' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe>
-     </body>
+	<table border="1">
+	    <thead>
+	        
+	        
+	    </thead>
+	    <tbody id="tbodys">
+	        
+	        
+	    </tbody>
+	    
+	</table>
+		<script>
+            
+            var html = '';
+        
+        $.ajax({
+          method: "GET",
+          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrFUPPGxM2QqV4A_C7aSEGXrhzDvrpdUORXBvOSZrYCO6b3t2b8eVljTLcorOXBRxZRvY6mypnhyj5/pub?output=tsv",
+          data: null
+        })
+          .done(function( data ) {
+            var rows = data.split("\n");
+            
+            for(var i=0; i< rows.length; i++) {
+                html += '<tr>'
+                var cells = rows[i].split("\t");
+
+                html += '<td>' + cells[0] + '</td>';
+                html += '<td>' + cells[1] + '</td>';
+                html += '<td>' + cells[9] + '</td>';
+                html += '<td>' + cells[10] + '</td>';
+
+                console.log(cells);
+                html += '</tr>'
+            }
+            
+            $('#tbodys').html(html);
+            
+            //alert( "Data Saved: " + msg );
+          });
+        </script>
+  </body>
 </html>
